@@ -1,8 +1,10 @@
-/build
+/build/
 .DS_Store
+
 /nori
 /warptest
-/ext_build
+*/ext_build
+
 CMakeCache.txt
 CMakeSettings.json
 CMakeFiles
@@ -14,7 +16,7 @@ build.ninja
 rules.ninja
 .vs
 .vscode
-/out
+/out/
 *.sublime-workspace
 *.sublime-project
 *.vcxproj
@@ -23,5 +25,7 @@ rules.ninja
 *.sln
 *.dir
 *.opendb
+*.user
+*.exe
 Debug
 x64
