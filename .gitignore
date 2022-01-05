@@ -29,3 +29,4 @@ rules.ninja
 *.exe
 Debug
 x64
+scenes/pa2/ajax.obj
