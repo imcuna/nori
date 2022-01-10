@@ -25,7 +25,7 @@ Scene::~Scene() {
 }
 
 void Scene::activate() {
-    m_accel->build();
+    m_accel->build();    // 终于找到拉!!! 是在这里构建的加速结构
 
     if (!m_integrator)
         throw NoriException("No integrator was specified!");

@@ -191,12 +191,12 @@ NoriObject *loadFromXML(const std::string &filename) {
 
                 /* Add all children */
                 for (auto ch: children) {
-                    result->addChild(ch);
+                    result->addChild(ch);     // 在这里AddMesh
                     ch->setParent(result);
                 }
 
                 /* Activate / configure the object */
-                result->activate();
+                result->activate();            // 这里构建了加速结构
             } else {
                 /* This is a property */
                 switch (tag) {

@@ -138,6 +138,7 @@ private:
 };
 
 /// Macro for registering an object constructor with the \ref NoriObjectFactory
+/// ##代表拼接 注意这里前面的空格不起作用
 #define NORI_REGISTER_CLASS(cls, name) \
     cls *cls ##_create(const PropertyList &list) { \
         return new cls(list); \

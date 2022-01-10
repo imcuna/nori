@@ -14,7 +14,9 @@ Makefile
 .ninja_log
 build.ninja
 rules.ninja
-.vs
+
+
+
 .vscode
 /out/
 *.sublime-workspace
@@ -30,3 +32,9 @@ rules.ninja
 Debug
 x64
 scenes/pa2/ajax.obj
+
+.vs/*
+!.vs/launch.vs.json
+bulid/.vs/nori/v16/.suo
+bulid/.vs/nori/v16/Browse.VC.db
+bulid/.vs/nori/v16/Solution.VC.db

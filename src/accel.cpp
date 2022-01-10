@@ -17,6 +17,7 @@ void Accel::addMesh(Mesh *mesh) {
 }
 
 void Accel::build() {
+    std::cout << "---------------------------------------------" << std::endl;
     /* Nothing to do here for now */
 }
 

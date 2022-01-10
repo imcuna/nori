@@ -50,7 +50,7 @@ public:
                 Point3f p;
                 line >> p.x() >> p.y() >> p.z();
                 p = trafo * p;
-                m_bbox.expandBy(p);
+                m_bbox.expandBy(p);           // 在这里构建的BBOX!!!!!!!!
                 positions.push_back(p);
             } else if (prefix == "vt") {
                 Point2f tc;
