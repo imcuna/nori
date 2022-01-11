@@ -8,11 +8,22 @@ NORI_NAMESPACE_BEGIN
 // 2,击中检测
 // 3,击中调用
 
+
+// 数据结构修改
+// 如何保存当前节点的所有mesh?
+// 新建一个Mesh太耗了
+// 1,对mesh进行排序(可以类似快排的策略 只需要找到中位数 然后把 比他小/大的放在左/右边就行了 )
+// 2,保存每次的begin and end 来确定当前包围盒对应的meshes
+// 这样一来 需要保存的就是当前mesh对应的BBox
+// 
+// 关于击中检测:
+// node里需要保存: 当前bBox,左节点在队列中的位置,右节点在队列中的位置 如果是叶节点 那么应该还要保存当前节点的三角形坐标
+// 击中检测中在非叶节点时 不需要当前bbox mesh信息!!!!!
 struct BVHNode {
 	int left;
 	int right;                 // 对应队列中的序号
 	BoundingBox3f m_bbox;
-	Mesh const * mesh;         // 按照BVH定义 一个图元对应一个节点
+	int meshIdx;         // 按照BVH定义 一个图元对应一个节点
 };
 
 class BVH
@@ -50,10 +61,21 @@ inline void BVH::bulid(Mesh * mesh) {
 	recurseBuild(root);
 	
 }
-
+// 1,找到最长的轴
+// 2,
 inline void BVH::recurseBuild(BVHNode node) {
-	for (m : node.mesh) {
+	auto nodeBox = node.mesh->getBoundingBox();
+	int longestAxis = nodeBox.getLargestAxis();
+	auto bboxCenter = nodeBox.getCenter();
 
+	Mesh leftMesh = Mesh();
+	Mesh rightMesh = Mesh();
+	for (uint32_t idx = 0; idx < node.mesh->getTriangleCount(); ++idx) {
+		auto curBbox = node.mesh->getBoundingBox(idx);
+		if (bboxCenter[longestAxis] <= curBbox.getCenter()[longestAxis]) {
+			leftMesh.addChild()
+		}
+		
 	}
 }
 
