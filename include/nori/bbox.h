@@ -86,6 +86,24 @@ template <typename _PointType> struct TBoundingBox {
         return 2.0f * result;
     }
 
+    // 获得最长的那个轴
+    int getLongestAxis() const {
+        int result = -1;
+        VectorType d = max - min;
+        // return d.maxCoeff();
+        float maxN = -1.0f;
+        for (int i = 0; i < Dimension; ++i) {
+            if (d[i] > maxN) {
+                maxN = d[i];
+                result = i;
+            }
+        }
+        if (result == -1) {
+            std::cerr << "??????错误" << std::endl;
+        }
+        return result;
+    }
+
     /// Return the center point
     PointType getCenter() const {
         return (max + min) * (Scalar) 0.5f;
