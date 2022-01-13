@@ -19,6 +19,10 @@ NORI_NAMESPACE_BEGIN
 // 关于击中检测:
 // node里需要保存: 当前bBox,左节点在队列中的位置,右节点在队列中的位置 如果是叶节点 那么应该还要保存当前节点的三角形坐标
 // 击中检测中在非叶节点时 不需要当前bbox mesh信息!!!!!
+
+// mesh的数据结构:
+// faces中保存了顶点编号
+// 顶点位置保存在m_V中 1,直接对faces进行排序 2,建立一个faces的索引 对这个索引进行排序
 struct BVHNode {
 	int left;
 	int right;                 // 对应队列中的序号
@@ -35,6 +39,7 @@ public:
 
 private:
 	std::vector<BVHNode> BVHTree;
+	std::vector<uint32_t> meshIndexes;
 };
 
 inline BVH::BVH()
@@ -58,18 +63,24 @@ inline void BVH::bulid(Mesh * mesh) {
 	root.right = -1;
 	root.mesh = mesh;
 
+	for (uint32_t idx = 0; idx < m_mesh->getTriangleCount(); ++idx) {  // todo:可以改成直接对原数据排序?
+		meshIndexes.emplace_back(idx);
+		
+	}
+
 	recurseBuild(root);
 	
 }
 // 1,找到最长的轴
-// 2,
+// 2,用快速选择算法,找到中间的元素
+// 3,
 inline void BVH::recurseBuild(BVHNode node) {
 	auto nodeBox = node.mesh->getBoundingBox();
 	int longestAxis = nodeBox.getLargestAxis();
 	auto bboxCenter = nodeBox.getCenter();
 
-	Mesh leftMesh = Mesh();
-	Mesh rightMesh = Mesh();
+	std::nth_element();
+
 	for (uint32_t idx = 0; idx < node.mesh->getTriangleCount(); ++idx) {
 		auto curBbox = node.mesh->getBoundingBox(idx);
 		if (bboxCenter[longestAxis] <= curBbox.getCenter()[longestAxis]) {
